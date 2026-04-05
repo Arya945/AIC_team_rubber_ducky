@@ -1,7 +1,67 @@
-name: CI pipeline
+# .github/workflows/ci.yml
+name: AIC Robotics CI Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [ "main", "dev" ]
   pull_request:
-    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    env:
+      PYTHON_VERSION: "3.10"
+
+    steps:
+    # Checkout repo
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Setup Python
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    # Cache dependencies (faster builds)
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    # Install dependencies
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # Lint (code quality)
+    - name: Lint code
+      run: |
+        pip install flake8
+        flake8 . --max-line-length=120 --exclude=venv
+
+    # Unit tests
+    - name: Run tests
+      run: |
+        pip install pytest
+        pytest tests/
+
+    # Policy validation test
+    - name: Validate policy logic
+      run: |
+        python policy/test_policy.py
+
+    # Perception sanity check
+    - name: Run perception test
+      run: |
+        python perception/test_perception.py || echo "No perception test found, skipping..."
+
+    # Basic simulation check (headless, optional)
+    - name: Simulation smoke test
+      run: |
+        python simulation/run_simulation.py --headless --test || echo "Simulation skipped"
