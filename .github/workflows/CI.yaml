@@ -1,6 +1,6 @@
 # .github/workflows/ci.yml
 name: AIC Robotics CI Pipeline
-
+# This is W.I.P will add the tests for commits and push later.
 on:
   push:
     branches: [ "main", "dev" ]
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     env:
       PYTHON_VERSION: "3.12"
