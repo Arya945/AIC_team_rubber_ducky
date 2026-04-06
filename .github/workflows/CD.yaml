@@ -1,0 +1,55 @@
+# .github/workflows/cd.yml
+# V1 Ai Edition
+# W.I.P With love Chanwith
+
+name: AIC Robotic CD Pipeline
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: action/checout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          image: ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latest
+            type=sha,format=short
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Test Docker image
+        run: |
+          docker run --rm ghcr.io/${{ github.repository }}:latest python -c "print('congrats is running successfully!')"
+
+      - name: Deployment Summary
+        run: |
+          echo "CD Pipeline Complete!"
+          echo "Image uploaded to: ghcr.io/${{ github.repository }}"
+          echo "Tags: latest, sha-${GITHUB_SHA::7}"
