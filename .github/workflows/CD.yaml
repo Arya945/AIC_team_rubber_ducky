@@ -1,5 +1,5 @@
 # .github/workflows/cd.yml
-# V1 Ai Edition
+# Alpha 0.1.1 Ai Edition
 # W.I.P With love Chanwith
 
 name: AIC Robotic CD Pipeline
@@ -15,10 +15,9 @@ permissions:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-24.04
-
     steps:
       - name: Checkout repository
-        uses: action/checout@v4
+        uses: actions/checkout@v4
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3
@@ -31,11 +30,11 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          image: ghcr.io/${{ github.repository }}
+          images: ghcr.io/${{ github.repository }}
           tags: |
             type=raw,value=latest
             type=sha,format=short
-      
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
