@@ -3,7 +3,7 @@ name: AIC Robotics CI Pipeline
 # This is W.I.P will add the tests for commits and push later.
 on:
   push:
-    branches: [ "main", "dev" ]
+    branches: [ "test-ci-cd" ]
   pull_request:
 
 jobs:

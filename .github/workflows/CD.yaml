@@ -6,7 +6,7 @@ name: AIC Robotic CD Pipeline
 
 on:
   push:
-    branches: ["main"]
+    branches: ["test-ci-cd"]
 
 permissions:
   contents: read
