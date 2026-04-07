@@ -64,4 +64,4 @@ jobs:
     # Basic simulation check (headless, optional)
     - name: Simulation smoke test
       run: |
-        python test/run_simulation.py --headless --test || echo "Simulation is on"
+        python test/test_simulation.py --headless --test || echo "Simulation is on"
