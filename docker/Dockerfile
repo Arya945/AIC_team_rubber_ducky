@@ -1,11 +1,20 @@
-# just a demo
+# Use official Python image
 FROM python:3.10
 
-WORKDIR /tests
+# Set working directory inside container
+WORKDIR /app
 
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+# Copy requirements first (better caching)
+COPY requirements.txt .
 
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source code
+COPY src/ ./src
+
+# Copy tests
 COPY tests/ ./tests
 
+# Default command (you can change this)
 CMD ["python", "tests/test_example.py"]
