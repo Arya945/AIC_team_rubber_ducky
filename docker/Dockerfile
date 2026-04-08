@@ -1,11 +1,11 @@
 # just a demo
 FROM python:3.10
 
-WORKDIR /app
+WORKDIR /test
 
-COPY docker/requirements.txt .
+COPY test/requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY app/ ./app
+COPY test/ ./test
 
-CMD ["python", "app/main.py"]
+CMD ["python", "test/test_example.py"]
