@@ -58,6 +58,7 @@ jobs:
         run: |
           IMAGE=$(echo "ghcr.io/${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           docker run --rm $IMAGE:latest python tests/test_example.py
+          
       - name: Deployment Summary
         run: |
           echo "CD Pipeline Complete!"
