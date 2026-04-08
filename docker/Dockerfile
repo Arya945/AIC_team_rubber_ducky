@@ -1,11 +1,11 @@
 # just a demo
 FROM python:3.10
 
-WORKDIR /test
+WORKDIR /tests
 
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY tests/ ./test
+COPY tests/ ./tests
 
-CMD ["python", "test/test_example.py"]
+CMD ["python", "tests/test_example.py"]
