@@ -1,6 +1,6 @@
 # .github/workflows/cd.yml
 # Alpha 0.1.1 Ai Edition
-# W.I.P With love Chanwith
+# W.I.P With hate Arya
 
 name: AIC Robotic CD Pipeline
 
@@ -38,7 +38,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./docker
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
