@@ -59,6 +59,7 @@ pyserial==3.5
 PySocks==1.7.1
 python-dateutil==2.9.0.post0
 pytz==2025.2
+pytest==7.4.2
 PyYAML==6.0.2
 requests==2.23.0
 scb-payment==0.1.0
