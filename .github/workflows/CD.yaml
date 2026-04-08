@@ -53,9 +53,11 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+
       - name: Test Docker image
         run: |
-          docker run --rm ghcr.io/${{ env.REPO_LC }}:latest python -c "print('congrats is running successfully!')"
+          IMAGE=$(echo "ghcr.io/${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          docker run --rm $IMAGE:latest python tests/test_example.py
       - name: Deployment Summary
         run: |
           echo "CD Pipeline Complete!"
