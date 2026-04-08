@@ -54,14 +54,14 @@ jobs:
     # Policy validation test
     - name: Validate policy logic
       run: |
-        python test/test_policy.py || echo "policy test is on"
+        python tests/test_policy.py || echo "policy test is on"
 
     # Perception sanity check
     - name: Run perception test
       run: |
-        python test/test_perception.py || echo "Perception test in on"
+        python tests/test_perception.py || echo "Perception test in on"
 
     # Basic simulation check (headless, optional)
     - name: Simulation smoke test
       run: |
-        python test/test_simulation.py --headless --test || echo "Simulation is on"
+        python tests/test_simulation.py --headless --test || echo "Simulation is on"
