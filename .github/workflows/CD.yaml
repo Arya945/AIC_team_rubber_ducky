@@ -19,6 +19,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Lowercase Convertor
+        run: |
+          echo "REPO_LC=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
+
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
@@ -30,7 +34,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository }}
+          images: ghcr.io/${{ env.REPO_LC }}
           tags: |
             type=raw,value=latest
             type=sha,format=short
@@ -46,10 +50,9 @@ jobs:
 
       - name: Test Docker image
         run: |
-          docker run --rm ghcr.io/${{ github.repository }}:latest python -c "print('congrats is running successfully!')"
-
+          docker run --rm ghcr.io/${{ env.REPO_LC }}:latest python -c "print('congrats is running successfully!')"
       - name: Deployment Summary
         run: |
           echo "CD Pipeline Complete!"
-          echo "Image uploaded to: ghcr.io/${{ github.repository }}"
+          echo "Image uploaded to: ghcr.io/${{ env.REPO_LC }}"
           echo "Tags: latest, sha-${GITHUB_SHA::7}"
