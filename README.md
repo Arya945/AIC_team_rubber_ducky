@@ -9,12 +9,9 @@ This project focuses on designing, simulating, and controlling an autonomous rob
 - Simulate a robot in Gazebo
 - Design a policy for robot decision-making
 - Deploy and test using CI/CD practices
-- 
----
+  
 
-## 🧠 System Architecture
-
-# AIC Evaluation Environment
+## AIC Evaluation Environment
 
 ## 1. Enter the AIC Evaluation Environment
 
