@@ -4,6 +4,8 @@
 This project focuses on designing, simulating, and controlling an autonomous robot using **LeRobot** and **Gazebo**. The system integrates perception, decision-making (policy), and control to enable intelligent robot behavior in a simulated environment.
 
 ---
+<img width="740" height="562" alt="Screenshot 2026-09-14 144032" src="https://github.com/user-attachments/assets/9df9ace2-8d19-4c69-9d67-f157a9cb3033" />
+
 
 ## 🎯 Objectives
 - Simulate a robot in Gazebo
